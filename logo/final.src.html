@@ -1,0 +1,82 @@
+<title>Logo Trading Tenang</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face { font-family: "Switzer"; src: url({{font:switzer-1}}) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url({{font:switzer-3}}) format("woff2"); font-weight: 600; font-display: swap; }
+/* Layout: logo final selebar halaman, lalu versi terang, favicon dalam beberapa ukuran, dan daftar file. */
+:root {
+  --bg: #18191b; --panel: #222427; --ink: #eff0f1; --muted: #a3a6ab; --accent: #ff4a1f;
+  --font: "Switzer", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.55 var(--font);
+  padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.page { max-width: 1240px; margin: 0 auto; padding-block: 64px 96px; display: grid; gap: 96px; }
+h1, h2, p { margin: 0; }
+h1 { font-size: clamp(2.4rem, 1.4rem + 4vw, 4.5rem); font-weight: 600; letter-spacing: -.04em; line-height: .95; }
+h2 { font-size: 28px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 24px; }
+.intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; }
+.intro h1 { grid-column: 1 / 7; }
+.intro p { grid-column: 7 / 13; max-width: 50ch; }
+.big svg, .pair svg { width: 100%; height: auto; display: block; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.pair figure, .big { margin: 0; display: grid; gap: 10px; }
+figcaption { color: var(--muted); font-size: 16px; }
+.fav { display: flex; gap: 40px; align-items: end; flex-wrap: wrap; background: var(--panel); padding: 32px; }
+.fav figure { margin: 0; display: grid; gap: 8px; justify-items: center; }
+.fav svg { display: block; width: 100%; height: 100%; }
+.tab { display: flex; align-items: center; gap: 8px; background: #2c2f33; padding: 10px 14px; border-radius: 8px 8px 0 0; font-size: 14px; }
+.tab span { width: 16px; height: 16px; display: block; }
+.files { columns: 2; column-gap: 32px; color: var(--muted); font-size: 16px; }
+.files p { margin-bottom: 6px; break-inside: avoid; }
+.files b { color: var(--ink); font-weight: 600; }
+@media (max-width: 760px) {
+  .intro { grid-template-columns: minmax(0, 1fr); }
+  .intro h1, .intro p { grid-column: 1 / -1; }
+  .pair { grid-template-columns: minmax(0, 1fr); }
+  .files { columns: 1; }
+}
+</style>
+
+<main class="page">
+  <section class="intro">
+    <h1>Logo Trading Tenang</h1>
+    <p>Logonya adalah nama itu sendiri, persis seperti judul di website: Switzer semibold, jarak antarhuruf rapat. Favicon memakai huruf T dari tulisan yang sama.</p>
+  </section>
+
+  <figure class="big">{{f:trading-tenang-logo-dark}}<figcaption>Logo utama, di latar grafit website.</figcaption></figure>
+
+  <section aria-labelledby="h-ver">
+    <h2 id="h-ver">Latar lain</h2>
+    <div class="pair">
+      <figure>{{f:trading-tenang-logo-light}}<figcaption>Di latar terang.</figcaption></figure>
+      <figure style="background:#ff4a1f">{{f:trading-tenang-logo-black}}<figcaption style="padding:0 12px 10px;color:#18191b">Tanpa latar, versi hitam, di atas oranye website.</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-fav">
+    <h2 id="h-fav">Favicon</h2>
+    <div class="fav">
+      <figure><div style="width:16px;height:16px">{{f:favicon}}</div><figcaption>16 px</figcaption></figure>
+      <figure><div style="width:32px;height:32px">{{f:favicon}}</div><figcaption>32 px</figcaption></figure>
+      <figure><div style="width:64px;height:64px">{{f:favicon}}</div><figcaption>64 px</figcaption></figure>
+      <figure><div style="width:128px;height:128px">{{f:favicon-rounded}}</div><figcaption>Ikon aplikasi</figcaption></figure>
+      <figure><div class="tab"><span>{{f:favicon}}</span>Trading Tenang</div><figcaption>Di tab browser</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-file">
+    <h2 id="h-file">File</h2>
+    <div class="files">
+      <p><b>trading-tenang-logo-dark</b> · teks terang di latar grafit</p>
+      <p><b>trading-tenang-logo-light</b> · teks grafit di latar terang</p>
+      <p><b>trading-tenang-logo-white</b> · teks terang, tanpa latar</p>
+      <p><b>trading-tenang-logo-black</b> · teks grafit, tanpa latar</p>
+      <p><b>favicon.svg</b>, <b>favicon.ico</b> · untuk website</p>
+      <p><b>favicon-16/32/48/192/512.png</b> · semua ukuran favicon</p>
+      <p><b>apple-touch-icon.png</b> · ikon saat disimpan ke layar HP</p>
+      <p><b>favicon-rounded</b> · foto profil dan ikon aplikasi</p>
+    </div>
+  </section>
+</main>

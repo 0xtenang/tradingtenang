@@ -1,0 +1,731 @@
+<title>Trading Tenang</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Perjalanan crypto pribadi sejak 2017: dua kali turun 90%, lalu miliar pertama dari memecoin.">
+<link rel="icon" type="image/svg+xml" href="{{svgdata:favicon}}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{pngdata:favicon-32}}">
+<link rel="apple-touch-icon" href="{{pngdata:apple-touch-icon}}">
+<style>
+@font-face { font-family: "Switzer"; src: url({{font:switzer-1}}) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url({{font:switzer-2}}) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url({{font:switzer-3}}) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Switzer"; src: url({{font:switzer-4}}) format("woff2"); font-weight: 700; font-display: swap; }
+
+/* Layout: nama sebagai monumen. Grafik perjalanan memenuhi atas layar, "Trading Tenang" selebar layar di bawahnya,
+   lalu halaman tenang: angka, grafik interaktif, jurnal yang bisa dibuka, pelajaran, ajakan, kelas, penutup. */
+:root {
+  --bg: #18191b;
+  --surface: #222427;
+  --surface-2: #2c2f33;
+  --ink: #eff0f1;
+  --muted: #a3a6ab;
+  --accent: #ff4a1f;
+  --accent-ink: #18191b;
+  --field: #e6e7e9;
+  --field-ink: #18191b;
+  --field-muted: #4d5056;
+  --up: #3ecf8e;
+  --font: "Switzer", "Helvetica Neue", Arial, sans-serif;
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --gutter-l: max(24px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(24px, env(safe-area-inset-right, 0px));
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 var(--step-body)/1.5 var(--font); letter-spacing: -.005em;
+  -webkit-font-smoothing: antialiased; font-kerning: normal;
+}
+h1, h2, h3, p, dl, dd, ul { margin: 0; padding: 0; }
+h1, h2, h3 { font-weight: 600; letter-spacing: -.04em; line-height: .95; text-wrap: balance; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.num { font-variant-numeric: tabular-nums; }
+.wrap { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.inner { max-width: 1392px; margin: 0 auto; }
+
+/* Bar oranye di atas halaman */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: calc(6px + env(safe-area-inset-top, 0px)); background: var(--accent); z-index: 20; }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-rows: 58svh auto; min-height: 100svh; }
+.hero-chart { position: relative; background: var(--surface); overflow: hidden; }
+.hero-chart svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-nav {
+  position: absolute; top: calc(24px + env(safe-area-inset-top, 0px)); right: var(--gutter-r); left: var(--gutter-l);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; z-index: 2;
+}
+.hero-nav .mark { font-weight: 600; font-size: var(--step-body); letter-spacing: -.02em; }
+.hero-nav nav { display: flex; gap: 24px; flex-wrap: wrap; justify-content: flex-end; }
+.hero-nav nav a { font-size: 16px; text-decoration: none; color: var(--ink); transition: color .2s ease; }
+.hero-nav nav a:hover { color: var(--accent); }
+.hero-band { display: grid; align-content: space-between; gap: 24px; padding-block: 24px 20px; }
+.hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+.hero-row p { max-width: 46ch; font-size: 20px; line-height: 1.4; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-ink);
+  font: 600 17px/1 var(--font); text-decoration: none; padding: 16px 22px; border-radius: 0;
+  transition: background-color .2s ease, color .2s ease, transform .12s var(--ease-out);
+}
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn:active { transform: scale(.97); }
+.hero h1 {
+  font-size: min(13.4vw, 280px); letter-spacing: -.055em; line-height: .82; white-space: nowrap;
+  margin-left: -.04em; transform-origin: 0 100%;
+}
+.hero h1 span { display: inline-block; }
+
+/* ---------- Angka ---------- */
+.stats { padding-block: 200px 160px; }
+.stats .inner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 24px; }
+.stats-list { grid-column: 2 / 8; }
+.stats h2 { font-size: var(--step-head); margin: 0 0 56px 156px; }
+.stats dl { display: grid; gap: 30px; }
+.stats .row { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 24px; align-items: baseline; }
+.stats dt { font-size: 32px; font-weight: 500; text-align: right; letter-spacing: -.03em; }
+.stats dt.hot { color: var(--accent); }
+.stats dd { color: var(--ink); max-width: 40ch; }
+.stats dd small { display: block; color: var(--muted); font-size: var(--step-small); margin-top: 2px; }
+.stats figure { grid-column: 9 / 13; margin: 80px 0 0; }
+.stats figure img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; display: block; filter: grayscale(1) contrast(1.1); }
+.stats figure figcaption { font-size: var(--step-small); color: var(--muted); margin-top: 12px; }
+
+/* ---------- Grafik interaktif ---------- */
+.plate { background: var(--field); color: var(--field-ink); }
+.plate .inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 88svh; }
+.plate-left { padding: 40px; display: grid; align-content: center; gap: 20px; }
+.plate-chart { background: var(--bg); aspect-ratio: 1; width: 100%; position: relative; }
+.plate-chart svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.scrub { display: grid; gap: 8px; }
+.scrub label { font-weight: 500; font-size: var(--step-small); color: var(--field-muted); }
+.scrub input[type=range] { width: 100%; accent-color: var(--accent); height: 28px; cursor: pointer; }
+.years { display: flex; justify-content: space-between; font-size: var(--step-small); color: var(--field-muted); }
+.plate-right { padding: 40px 40px 40px 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+.tabs { display: flex; gap: 28px; flex-wrap: wrap; }
+.tabs button {
+  font: 500 var(--step-body)/1.2 var(--font); background: none; border: 0; padding: 4px 0; cursor: pointer;
+  color: var(--field-muted); transition: color .2s ease;
+}
+.tabs button[aria-selected=true] { color: var(--field-ink); font-weight: 600; text-decoration: underline 3px var(--accent); text-underline-offset: 8px; }
+.tabs button:hover { color: var(--field-ink); }
+.plate h2 { font-size: var(--step-head); max-width: 12ch; }
+.now-year { display: grid; gap: 16px; }
+.now-year .yr { font-size: clamp(4rem, 2rem + 7vw, 9rem); font-weight: 600; letter-spacing: -.06em; line-height: .8; }
+.now-year .val { font-size: var(--step-lead); font-weight: 600; letter-spacing: -.02em; }
+.now-year .val b { background: var(--accent); color: var(--accent-ink); font-weight: 600; padding: 0 .18em; }
+.now-year p { max-width: 38ch; color: var(--field-ink); }
+.cells { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cells a {
+  display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 20px;
+  font-weight: 600; text-decoration: none; transition: background-color .2s ease, color .2s ease, transform .12s var(--ease-out);
+}
+.cells a:active { transform: scale(.98); }
+.cells .c1 { background: var(--field-ink); color: var(--field); }
+.cells .c1:hover { background: var(--accent); color: var(--accent-ink); }
+.cells .c2 { background: #d2d4d7; color: var(--field-ink); }
+.cells .c2:hover { background: var(--field-ink); color: var(--field); }
+
+/* ---------- Jurnal ---------- */
+.journal { padding-block: 200px 160px; }
+.journal .inner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 24px; align-items: start; }
+.journal-word { grid-column: 1 / 6; position: sticky; top: 48px; container-type: inline-size; }
+.journal-word h2 { font-size: 30cqw; letter-spacing: -.07em; line-height: .8; font-weight: 700; margin-left: -.05em; }
+.journal-word p { margin-top: 28px; max-width: 34ch; }
+.journal-word p span { color: var(--accent); font-weight: 600; }
+.bars { grid-column: 6 / 13; display: grid; gap: 6px; }
+.bars details { background: var(--surface); }
+.bars summary {
+  list-style: none; display: grid; grid-template-columns: 72px minmax(0, 1fr) auto auto; gap: 18px; align-items: center;
+  min-height: 60px; padding: 0 18px; cursor: pointer; font-weight: 500; transition: background-color .2s ease;
+}
+.bars summary::-webkit-details-marker { display: none; }
+.bars summary:hover { background: var(--surface-2); }
+.bars summary .y { font-weight: 600; font-size: var(--step-body); letter-spacing: -.03em; }
+.bars summary .t { min-width: 0; }
+.bars summary .v { color: var(--muted); font-size: 16px; white-space: nowrap; }
+.bars summary .v.dn { color: var(--accent); }
+.bars summary .v.up { color: var(--up); }
+.bars summary .pl { width: 14px; height: 14px; position: relative; transition: transform .3s var(--ease-out); }
+.bars summary .pl::before, .bars summary .pl::after { content: ""; position: absolute; background: var(--ink); }
+.bars summary .pl::before { left: 0; right: 0; top: 6px; height: 2px; }
+.bars summary .pl::after { top: 0; bottom: 0; left: 6px; width: 2px; }
+.bars details[open] .pl { transform: rotate(45deg); }
+.bars ul { list-style: none; display: grid; gap: 14px; padding: 6px 20px 24px 108px; }
+.bars li { display: flex; justify-content: space-between; gap: 16px; font-size: 16px; }
+.bars li span:last-child { font-variant-numeric: tabular-nums; font-weight: 500; text-align: right; white-space: nowrap; }
+
+/* ---------- Eksperimen ---------- */
+.projects { background: var(--field); color: var(--field-ink); padding-block: 160px 200px; }
+.proj-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; }
+.proj-head h2 { grid-column: 1 / 9; font-size: var(--step-head); }
+.proj-head p { grid-column: 9 / 13; }
+.proj { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 24px; align-items: center; margin-top: 140px; }
+.proj-text { display: grid; gap: 24px; align-content: start; }
+.proj-name { font-size: clamp(4rem, 1.5rem + 8vw, 10rem); font-weight: 600; letter-spacing: -.06em; line-height: .82; margin-left: -.04em; }
+.proj-text p { max-width: 42ch; }
+.proj-figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; }
+.proj-figs div { display: grid; gap: 2px; }
+.proj-figs dt { font-size: var(--step-lead); font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.proj-figs dd { color: var(--field-muted); font-size: 16px; }
+.proj-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.projects .btn:hover { background: var(--field-ink); color: var(--field); }
+.btn.alt { background: #d2d4d7; color: var(--field-ink); }
+.proj figure { margin: 0; display: grid; gap: 12px; }
+.proj figure img { width: 100%; height: auto; display: block; }
+.proj figcaption { font-size: 16px; color: var(--field-muted); }
+.proj.bags .proj-text { grid-column: 1 / 6; }
+.proj.bags figure { grid-column: 7 / 12; }
+.proj.pepes figure { grid-column: 1 / 8; }
+.proj.pepes .proj-text { grid-column: 9 / 13; }
+
+/* ---------- Pelajaran ---------- */
+.lessons { background: var(--surface); padding-block: 120px 160px; }
+.lessons h2 { font-size: min(12vw, 200px); letter-spacing: -.06em; line-height: .85; }
+.lessons-intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; }
+.lessons-intro h2 { grid-column: 1 / 10; }
+.lessons-intro p { grid-column: 10 / 13; padding-bottom: .6em; }
+.lessons-flow { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 96px 24px; margin-top: 120px; }
+.lesson { display: grid; gap: 18px; align-content: start; }
+.lesson:nth-child(odd) { grid-column: 2 / 7; }
+.lesson:nth-child(even) { grid-column: 8 / 12; margin-top: 160px; }
+.lesson figure { margin: 0; overflow: hidden; }
+.lesson img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; filter: grayscale(1) contrast(1.08) brightness(.85); }
+.lesson:nth-child(even) img { aspect-ratio: 1; }
+.lesson .txt { display: grid; gap: 8px; }
+.lesson h3 { font-size: var(--step-lead); letter-spacing: -.02em; line-height: 1.15; }
+.lesson p b { color: var(--accent); font-weight: 600; }
+.lesson p { max-width: 40ch; }
+
+/* ---------- Ajakan ---------- */
+.cta {
+  display: block; background: var(--accent); color: var(--accent-ink); text-decoration: none; min-height: 60svh;
+  position: relative; overflow: hidden; transition: background-color .15s ease, color .15s ease;
+}
+.cta:hover, .cta:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
+.cta .inner { min-height: 60svh; display: grid; grid-template-rows: auto 1fr; padding-block: 28px 24px; }
+.cta-top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.cta-top h2 { grid-column: 1 / 7; }
+.cta-top p { grid-column: 8 / 12; font-size: var(--step-body); }
+.cta-top svg { grid-column: 12 / 13; justify-self: end; }
+.cta-top h2 { font-size: var(--step-lead); letter-spacing: -.02em; line-height: 1.2; max-width: 34ch; font-weight: 500; }
+.cta-top svg { width: 48px; height: 48px; flex: none; transition: transform .3s var(--ease-out); }
+.cta:hover .cta-top svg { transform: translate(6px, -6px); }
+.cta-word { align-self: end; font-size: min(25vw, 420px); font-weight: 700; letter-spacing: -.07em; line-height: .78; margin-left: -.05em; }
+
+/* ---------- Kelas ---------- */
+.contact { background: var(--field); color: var(--field-ink); min-height: 72svh; }
+.contact .inner { min-height: 72svh; display: grid; grid-template-rows: auto 1fr auto; gap: 40px; padding-block: 40px; }
+.contact-top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
+.price-box { grid-column: 1 / 5; display: grid; gap: 16px; align-content: start; }
+.price { font-size: var(--step-head); font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+.contact-top h2 { font-size: var(--step-lead); letter-spacing: -.02em; line-height: 1.2; font-weight: 600; }
+.contact-top ul { grid-column: 6 / 13; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 24px; }
+.contact-top li { display: grid; gap: 2px; }
+.contact-top li b { font-weight: 600; }
+.contact-top li span { color: var(--field-muted); font-size: 16px; }
+.contact-big {
+  align-self: end; font-size: min(8.6vw, 150px); font-weight: 400; letter-spacing: -.055em; line-height: .9;
+  text-decoration: none; overflow-wrap: anywhere; transition: color .2s ease;
+}
+.contact-big:hover { color: var(--accent); }
+.contact-big .arr { display: inline-block; transition: transform .3s var(--ease-out); }
+.contact-big:hover .arr { transform: translate(.08em, -.08em); }
+.contact-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 16px; }
+.contact-foot div { display: flex; gap: 20px; flex-wrap: wrap; }
+.contact-foot a { text-decoration: none; transition: color .2s ease; }
+.contact-foot a:hover { color: var(--accent); }
+
+/* ---------- Footer ---------- */
+footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
+.foot-name { font-size: min(13.4vw, 280px); font-weight: 600; letter-spacing: -.055em; line-height: .82; white-space: nowrap; margin-left: -.04em; }
+.foot-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 72px; }
+.places { grid-column: 1 / 6; list-style: none; display: grid; gap: 6px; }
+.places a { font-size: clamp(26px, 1.4rem + .8vw, 32px); letter-spacing: -.03em; color: var(--accent); text-decoration: none; font-weight: 500; transition: color .2s ease; }
+.places a:hover { color: var(--ink); }
+.foot-cols { grid-column: 7 / 13; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; font-size: 16px; }
+.foot-cols h3 { font-size: 16px; letter-spacing: 0; line-height: 1.4; font-weight: 600; margin-bottom: 8px; }
+.foot-cols ul { list-style: none; display: grid; gap: 6px; }
+.foot-cols a { color: var(--muted); text-decoration: none; transition: color .2s ease; }
+.foot-cols a:hover { color: var(--ink); }
+.foot-cols p { color: var(--muted); }
+.credits { margin-top: 72px; font-size: 16px; color: var(--muted); max-width: 68ch; }
+.credits a { color: var(--ink); }
+.legal { margin-top: 32px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 16px; color: var(--muted); }
+.legal p { max-width: 68ch; }
+.legal a { color: var(--ink); }
+
+/* ---------- Ponsel ---------- */
+@media (max-width: 900px) {
+  .stats .inner, .journal .inner, .foot-row, .contact-top { grid-template-columns: minmax(0, 1fr); }
+  .stats-list, .stats figure, .journal-word, .bars, .places, .foot-cols, .price-box, .contact-top ul { grid-column: 1 / -1; }
+  .stats figure { width: 56%; margin: 56px 0 0 auto; }
+  .journal-word { position: static; margin-bottom: 36px; }
+  .journal-word h2 { font-size: 30cqw; }
+  .plate .inner { grid-template-columns: minmax(0, 1fr); }
+  .plate-left { padding: 16px 0 0; order: 4; }
+  .plate-right { padding: 56px 0 40px; display: contents; }
+  .plate-right > * { order: 1; }
+  .plate-right .tabs { order: 1; padding-top: 64px; }
+  .plate-right h2 { order: 1; margin-top: 24px; }
+  .plate-right .now-year { order: 3; padding-top: 28px; }
+  .plate-right .cells { order: 5; padding-block: 28px 56px; }
+  .projects { padding-block: 96px 112px; }
+  .proj-head, .proj { grid-template-columns: minmax(0, 1fr); }
+  .proj-head h2, .proj-head p, .proj.bags .proj-text, .proj.bags figure, .proj.pepes figure, .proj.pepes .proj-text { grid-column: 1 / -1; }
+  .proj { margin-top: 80px; }
+  .proj.pepes .proj-text { order: -1; }
+  .lessons { padding-block: 96px 112px; }
+  .lessons-intro, .lessons-flow { grid-template-columns: minmax(0, 1fr); }
+  .lessons-intro h2, .lessons-intro p { grid-column: 1 / -1; }
+  .lessons h2 { font-size: 17vw; }
+  .lessons-flow { gap: 56px; margin-top: 56px; }
+  .lesson:nth-child(odd), .lesson:nth-child(even) { grid-column: 1 / -1; width: 78%; margin-top: 0; }
+  .lesson:nth-child(even) { margin-left: auto; }
+}
+@media (max-width: 640px) {
+  :root { --gutter-l: max(16px, env(safe-area-inset-left, 0px)); --gutter-r: max(16px, env(safe-area-inset-right, 0px)); }
+  .hero { grid-template-rows: 50svh auto; }
+  .hero-nav nav { gap: 14px; }
+  .hero-nav nav a:not(.keep) { display: none; }
+  .hero h1, .foot-name { font-size: 21vw; white-space: normal; }
+  .hero h1 span, .foot-name span { display: block; }
+  .hero-row { flex-direction: column; order: 2; }
+  .hero h1 { order: 1; }
+  .hero-band { align-content: start; gap: 28px; }
+  .stats { padding-block: 120px 96px; }
+  .stats h2 { margin-left: 112px; font-size: 22px; letter-spacing: -.02em; }
+  .stats .row { grid-template-columns: 88px minmax(0, 1fr); gap: 16px; }
+  .stats dt { font-size: 24px; }
+  .journal { padding-block: 120px 80px; }
+  .bars summary { grid-template-columns: 54px minmax(0, 1fr) auto; gap: 12px; padding: 12px 14px; }
+  .bars summary .v { grid-column: 2; grid-row: 2; }
+  .bars summary .pl { grid-column: 3; grid-row: 1 / 3; }
+  .bars ul { padding: 4px 14px 20px 80px; }
+  .cells { grid-template-columns: minmax(0, 1fr); }
+  .cells a { height: 60px; }
+  .cta, .cta .inner { min-height: 46svh; }
+  .cta-top { grid-template-columns: minmax(0, 1fr) auto; }
+  .cta-top h2 { font-size: 17px; grid-column: 1; }
+  .cta-top p { display: none; }
+  .cta-top svg { grid-column: 2; grid-row: 1; }
+  .cta-top svg { width: 32px; height: 32px; }
+  .cta-word { font-size: 24vw; }
+  .contact, .contact .inner { min-height: 86svh; }
+  .contact .inner { gap: 72px; }
+  .contact-top ul { grid-template-columns: minmax(0, 1fr); }
+  .contact-big { font-size: 11.5vw; }
+  .contact-foot { flex-direction: column; }
+}
+
+/* ---------- Gerak ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes lift { from { transform: translateY(40px); } to { transform: none; } }
+@keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+@keyframes settle { from { transform: scale(1.12); } to { transform: scale(1); } }
+@keyframes shrink { to { transform: scale(.93); opacity: .55; } }
+@keyframes grow { from { transform: scale(.94); } to { transform: scale(1); } }
+.js .hero h1 span { animation: rise .9s var(--ease-out) both; }
+.js .hero h1 span + span { animation-delay: .08s; }
+.js .hero-row > * { animation: rise .8s var(--ease-out) .25s both; }
+.js .hero-row > * + * { animation-delay: .33s; }
+.hero-chart .line { stroke-dasharray: var(--len); animation: draw 1.1s var(--ease-out) .1s both; }
+.hero-chart .pt { animation: rise .6s var(--ease-out) both; animation-delay: calc(.5s + var(--i) * 60ms); }
+@supports (animation-timeline: view()) {
+  .hero h1 { animation: shrink linear both; animation-timeline: scroll(root); animation-range: 0 100svh; }
+  .foot-name { animation: grow linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  .rv { animation: lift linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  .rv.d1 { animation-range: entry 6% entry 76%; }
+  .rv.d2 { animation-range: entry 12% entry 82%; }
+  .rv.d3 { animation-range: entry 18% entry 88%; }
+  .lesson figure, .stats figure { overflow: hidden; }
+  .lesson img, .stats figure img { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="hero">
+  <div class="hero-chart">
+    <div class="hero-nav">
+      <span class="mark">Trading Tenang</span>
+      <nav aria-label="Navigasi">
+        <a href="#grafik">Grafik</a>
+        <a href="#jurnal">Jurnal</a>
+        <a href="#project">Project</a>
+        <a href="#pelajaran">Pelajaran</a>
+        <a href="#kelas" class="keep">Kelas</a>
+      </nav>
+    </div>
+    <svg id="hero-svg" role="img" aria-label="Grafik portofolio crypto 2017 sampai 2025: 50 juta, turun ke 5 juta, puncak 300 juta, turun ke 30 juta, lalu 1 miliar dan total profit 5 miliar"></svg>
+  </div>
+  <div class="hero-band wrap">
+    <div class="hero-row">
+      <p>Perjalanan crypto saya sejak 2017. Dua kali portofolio turun 90%, lalu miliar pertama datang dari memecoin.</p>
+      <a class="btn" href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener">Gabung komunitas gratis</a>
+    </div>
+    <h1><span>Trading</span> <span>Tenang</span></h1>
+  </div>
+</header>
+
+<main>
+  <section class="stats wrap" aria-labelledby="h-angka">
+    <div class="inner">
+      <div class="stats-list">
+        <h2 id="h-angka" class="rv">Angka perjalanan</h2>
+        <dl>
+          <div class="row rv"><dt class="num">50 jt</dt><dd>Modal pertama di akhir 2017, tepat di puncak bull market.<small>Gaji waktu itu 6,5 juta sebulan</small></dd></div>
+          <div class="row rv d1"><dt class="num hot">−90%</dt><dd>Dua kali portofolio hampir habis, di 2018 dan di 2022.<small>50 jt → 5 jt, lalu 300 jt → 30 jt</small></dd></div>
+          <div class="row rv d1"><dt class="num">86×</dt><dd>TROLL, memecoin ERC-20 yang dibeli Agustus 2023.<small>$50 → $4.300 di Februari 2024</small></dd></div>
+          <div class="row rv d2"><dt class="num">$161rb</dt><dd>Fees dari $BAGS, memecoin iseng buatan sendiri di Solana.<small>$100 ribu pertama baru ketahuan awal 2025</small></dd></div>
+          <div class="row rv d3"><dt class="num hot">5 M</dt><dd>Total profit dari crypto, lalu resign dari dunia korporat.<small>Rumah dan kendaraan di luar angka ini</small></dd></div>
+        </dl>
+      </div>
+      <figure class="rv d2">
+        <img src="{{img:dark-bitcoin-coins}}" width="1100" height="733" alt="Dua koin Bitcoin berwarna gelap" loading="lazy">
+        <figcaption>Bitcoin, pintu masuk di 2017.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="plate wrap" id="grafik" aria-labelledby="h-grafik">
+    <div class="inner">
+      <div class="plate-left">
+        <div class="plate-chart"><svg id="plate-svg" role="img" aria-label="Grafik interaktif per tahun"></svg></div>
+        <div class="scrub">
+          <label for="year">Geser untuk pilih tahun</label>
+          <input id="year" type="range" min="2017" max="2026" step="1" value="2021">
+          <div class="years num" aria-hidden="true"><span>2017</span><span>2020</span><span>2023</span><span>2026</span></div>
+        </div>
+      </div>
+      <div class="plate-right">
+        <div class="tabs" role="tablist" aria-label="Pilih data">
+          <button role="tab" id="tab-porto" aria-selected="true">Portofolio crypto</button>
+          <button role="tab" id="tab-gaji" aria-selected="false">Gaji kantor</button>
+        </div>
+        <h2 id="h-grafik">Geser tahunnya</h2>
+        <div class="now-year" aria-live="polite">
+          <div class="yr num" id="ny-year">2021</div>
+          <div class="val" id="ny-val">Puncak <b>300 jt</b></div>
+          <p id="ny-text">Porto 5 juta jadi 150 juta. Saya tambah 75 juta dan tidak take profit.</p>
+        </div>
+        <div class="cells">
+          <a class="c1" href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener">Grup diskusi <span aria-hidden="true">↗</span></a>
+          <a class="c2" href="https://clicky.id/tradingtenang" target="_blank" rel="noopener">Kelas 1-on-1 · Rp5 jt <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="journal wrap" id="jurnal" aria-labelledby="h-jurnal">
+    <div class="inner">
+      <div class="journal-word">
+        <h2 id="h-jurnal">Jurnal</h2>
+        <p class="rv">Sepuluh tahun, satu baris per tahun. Buka satu untuk lihat angkanya. <span>Oranye</span> berarti turun.</p>
+      </div>
+      <div class="bars">
+        <details class="rv"><summary><span class="y num">2017</span><span class="t">Masuk di puncak</span><span class="v num">modal 50 jt</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Pekerjaan pertama, korporat</span><span>6,5 jt/bln</span></li><li><span>Modal crypto</span><span>50 jt</span></li><li><span>Target</span><span>1 M sebelum 30</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2018</span><span class="t">Bear market, berhenti total</span><span class="v dn num">−90%</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Portofolio</span><span>50 jt → 5 jt</span></li><li><span>Crypto dan pekerjaan</span><span>berhenti</span></li><li><span>Pulang kampung, rehat</span><span>beberapa bulan</span></li><li><span>Kerja lagi, sales FMCG</span><span>6,5 jt/bln</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2019</span><span class="t">Fokus kerja, coba saham</span><span class="v num">+12 jt</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Gaji naik</span><span>6,5 → 9 jt/bln</span></li><li><span>Profit saham Indonesia, 1 tahun</span><span>12 jt</span></li><li><span>Berhenti saham</span><span>saat COVID</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2020</span><span class="t">Porto lama hidup lagi</span><span class="v up num">naik</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Market crypto</span><span>menuju ATH</span></li><li><span>Porto 5 jt</span><span>naik pelan-pelan</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2021</span><span class="t">Puncak, tidak take profit</span><span class="v up num">300 jt</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Pindah kerja, tetap sales</span><span>14,5 jt/bln</span></li><li><span>Porto</span><span>5 jt → 150 jt</span></li><li><span>Tambah modal</span><span>75 jt</span></li><li><span>Puncak portofolio</span><span>300 jt</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2022</span><span class="t">Bear lagi, kali ini bertahan</span><span class="v dn num">−90%</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Portofolio</span><span>300 jt → 30 jt</span></li><li><span>Berhenti ikut-ikutan</span><span>mulai mengulik</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2023</span><span class="t">Titik terendah</span><span class="v dn num">15 jt</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Kena bencana alam, saldo rekening</span><span>15 jt</span></li><li><span>Belajar liquidity, token, memecoin</span><span>dari dasar</span></li><li><span>FrenPet, bagsworking</span><span>aktif</span></li><li><span>Beli TROLL, Agustus</span><span>$50</span></li></ul></details>
+        <details class="rv" open><summary><span class="y num">2024</span><span class="t">Tahun emas memecoin</span><span class="v up num">1 M</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>TROLL, Februari</span><span>$50 → $4.300</span></li><li><span>Memecoin Solana dan Base</span><span>profit demi profit</span></li><li><span>Bikin $BAGS di launchpad Solana</span><span>booming</span></li><li><span>Miliar pertama, akhir tahun</span><span>1 M</span></li></ul></details>
+        <details class="rv"><summary><span class="y num">2025</span><span class="t">Resign dari korporat</span><span class="v up num">5 M</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Royalti $BAGS</span><span>$100.000</span></li><li><span>Burnout memecoin</span><span>pindah ke spot</span></li><li><span>Total profit crypto</span><span>5 M</span></li><li><span>Rumah dan kendaraan</span><span>dari crypto</span></li><li><span>Diversifikasi, akhir tahun</span><span>saham dividen</span></li></ul></details>
+        <details class="rv" open><summary><span class="y num">2026</span><span class="t">Tiga kaki dan berbagi</span><span class="v up num">$15rb</span><span class="pl" aria-hidden="true"></span></summary>
+          <ul><li><span>Saham dividen, spot, memecoin</span><span>jalan</span></li><li><span>PEPES, launchpad ekosistem IMD</span><span>~$15.000 fees</span></li><li><span>Komunitas Trading Tenang x OKX</span><span>gratis</span></li><li><span>Mentorship one on one</span><span>dibuka</span></li></ul></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects wrap" id="project" aria-labelledby="h-project">
+    <div class="inner">
+      <div class="proj-head">
+        <h2 id="h-project" class="rv">Eksperimen personal project</h2>
+        <p class="rv d1">Dua project yang saya bangun sendiri, bukan cuma saya beli. Satu iseng, satu untuk hackathon. Dua-duanya menghasilkan.</p>
+      </div>
+
+      <article class="proj bags" aria-labelledby="h-bags">
+        <div class="proj-text">
+          <h3 id="h-bags" class="proj-name">$BAGS</h3>
+          <p class="rv">Bagscoin, memecoin yang saya buat iseng di launchpad Bags di Solana akhir 2024. Koinnya booming, dan sebagai pembuat saya dapat bagian dari fee setiap transaksi.</p>
+          <dl class="proj-figs rv d1">
+            <div><dt>$161,28 rb</dt><dd>Fees sudah diklaim</dd></div>
+            <div><dt>Akhir 2024</dt><dd>Diluncurkan di Solana</dd></div>
+          </dl>
+          <div class="proj-links rv d2">
+            <a class="btn" href="https://dexscreener.com/solana/gwqe7fxukze46zqch7afwpzwzktbdt8wfjlwddja3unl" target="_blank" rel="noopener">Chart di Dexscreener <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="rv d1">
+          <img src="{{img:bags-fees}}" width="984" height="1042" alt="Screenshot dashboard Bags: fees claimed $161,28 ribu" loading="lazy">
+          <figcaption>Dashboard pembuat di Bags. Fees yang sudah diklaim: $161,28 ribu.</figcaption>
+        </figure>
+      </article>
+
+      <article class="proj pepes" aria-labelledby="h-pepes">
+        <figure class="rv">
+          <img src="{{img:pepes-site}}" width="1440" height="900" alt="Screenshot aula 3D PEPES: layar besar berisi transaksi token dan karakter Pepe" loading="lazy">
+          <figcaption>Aula 3D di pepesimd.fun. Layar besarnya menampilkan setiap launch dan trade.</figcaption>
+        </figure>
+        <div class="proj-text">
+          <h3 id="h-pepes" class="proj-name">PEPES</h3>
+          <p class="rv">Launchpad di ekosistem IMD yang saya bangun untuk hackathon 2026. Orang bisa launch token, mint NFT, dan klaim reward di satu aula 3D.</p>
+          <dl class="proj-figs rv d1">
+            <div><dt>~$15.000</dt><dd>Keuntungan dari fees</dd></div>
+            <div><dt>79 token</dt><dd>Sudah diluncurkan</dd></div>
+          </dl>
+          <div class="proj-links rv d2">
+            <a class="btn" href="https://www.pepesimd.fun/" target="_blank" rel="noopener">Buka PEPES <span aria-hidden="true">↗</span></a>
+            <a class="btn alt" href="https://dexscreener.com/robinhood/0xa6ac374bf40898004f0f4cf46389d4fc2735fe413c95379a5b2e1fdce089ec18" target="_blank" rel="noopener">Dexscreener <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="lessons wrap" id="pelajaran" aria-labelledby="h-pelajaran">
+   <div class="inner">
+    <div class="lessons-intro">
+      <h2 id="h-pelajaran">Pelajaran mahal</h2>
+      <p class="rv">Empat hal yang harganya dua kali kehilangan 90% modal.</p>
+    </div>
+    <div class="lessons-flow">
+      <article class="lesson">
+        <figure><img src="{{img:gold-market-ny-stock-exchange}}" width="1100" height="747" alt="Pialang mengangkat tangan di lantai bursa New York, foto arsip" loading="lazy"></figure>
+        <div class="txt"><h3>Bull market selalu terasa abadi</h3><p><b>2017 dan 2021.</b> Dua kali saya masuk atau menambah modal tepat di puncak. Dua kali turun 90%.</p></div>
+      </article>
+      <article class="lesson">
+        <figure><img src="{{img:n-y-stock-exchange-bernard-gotfryd}}" width="1100" height="747" alt="Lantai bursa New York penuh layar dan pialang, foto arsip" loading="lazy"></figure>
+        <div class="txt"><h3>Profit di layar belum profit</h3><p><b>2021.</b> 300 juta hanya angka sampai diambil. Tentukan take profit sebelum euforia datang.</p></div>
+      </article>
+      <article class="lesson">
+        <figure><img src="{{img:casascius-coin}}" width="1100" height="831" alt="Koin Bitcoin fisik Casascius dengan stiker hologram" loading="lazy"></figure>
+        <div class="txt"><h3>Pahami, jangan ikut-ikutan</h3><p><b>2022 dan 2023.</b> Hasil berubah setelah saya belajar liquidity, tokenomics, dan cara memecoin bekerja dari dalam.</p></div>
+      </article>
+      <article class="lesson">
+        <figure><img src="{{img:rice-terraces-in-jatiluwih-tabanan-regency-bali}}" width="1100" height="825" alt="Sawah berundak di Jatiluwih, Bali" loading="lazy"></figure>
+        <div class="txt"><h3>Rehat juga strategi</h3><p><b>2018 dan 2025.</b> Pulang kampung di 2018, burnout di 2025. Spot dan saham dividen membuat saya tetap di pasar tanpa habis.</p></div>
+      </article>
+    </div>
+   </div>
+  </section>
+
+  <a class="cta wrap" href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener" aria-labelledby="h-cta">
+    <div class="inner">
+      <div class="cta-top">
+        <h2 id="h-cta">Komunitas gratis Trading Tenang x OKX di Telegram. Saham, crypto, memecoin, dan project.</h2>
+        <p>Grup diskusi untuk tanya jawab, channel untuk update dan sinyal. Keduanya gratis.</p>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 36 36 12M16 12h20v20" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+      </div>
+      <div class="cta-word" aria-hidden="true">Gabung</div>
+    </div>
+  </a>
+
+  <section class="contact wrap" id="kelas" aria-labelledby="h-kelas">
+    <div class="inner">
+      <div class="contact-top">
+        <div class="price-box">
+          <h2 id="h-kelas" class="rv">Kelas mentorship one on one, sampai bisa.</h2>
+          <p class="price num rv d1">Rp5.000.000</p>
+        </div>
+        <ul>
+          <li class="rv"><b>Satu mentor, satu murid</b><span>Lewat online meeting, jadwal diatur bersama.</span></li>
+          <li class="rv d1"><b>Sampai bisa</b><span>Dibimbing sampai kamu paham dan bisa jalan sendiri.</span></li>
+          <li class="rv d2"><b>Materi dari pengalaman nyata</b><span>Crypto spot, memecoin, saham dividen, dan membuat project.</span></li>
+        </ul>
+      </div>
+      <a class="contact-big" href="https://clicky.id/tradingtenang" target="_blank" rel="noopener">clicky.id/<wbr>tradingtenang <span class="arr" aria-hidden="true">↗</span></a>
+      <div class="contact-foot">
+        <span>Online · Indonesia</span>
+        <div>
+          <a href="https://x.com/TradingTenang" target="_blank" rel="noopener">X @TradingTenang</a>
+          <a href="https://www.tiktok.com/@TENANGTRADING" target="_blank" rel="noopener">TikTok @TENANGTRADING</a>
+          <a href="https://t.me/sinyaltradingtenang" target="_blank" rel="noopener">Channel Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="inner">
+    <p class="foot-name" aria-hidden="true"><span>Trading</span> <span>Tenang</span></p>
+    <div class="foot-row">
+      <ul class="places">
+        <li><a href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener">Grup Telegram</a></li>
+        <li><a href="https://t.me/sinyaltradingtenang" target="_blank" rel="noopener">Channel Telegram</a></li>
+        <li><a href="https://x.com/TradingTenang" target="_blank" rel="noopener">X</a></li>
+        <li><a href="https://www.tiktok.com/@TENANGTRADING" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+      <div class="foot-cols">
+        <div><h3>Halaman</h3><ul><li><a href="#grafik">Grafik</a></li><li><a href="#jurnal">Jurnal</a></li><li><a href="#pelajaran">Pelajaran</a></li><li><a href="#kelas">Kelas</a></li></ul></div>
+        <div><h3>Project</h3><ul><li><a href="https://www.pepesimd.fun/" target="_blank" rel="noopener">PEPES</a></li><li><a href="https://dexscreener.com/robinhood/0xa6ac374bf40898004f0f4cf46389d4fc2735fe413c95379a5b2e1fdce089ec18" target="_blank" rel="noopener">PEPES di Dexscreener</a></li><li><a href="https://dexscreener.com/solana/gwqe7fxukze46zqch7afwpzwzktbdt8wfjlwddja3unl" target="_blank" rel="noopener">$BAGS di Dexscreener</a></li></ul></div>
+        <div><h3>Belajar</h3><ul><li><a href="https://clicky.id/tradingtenang" target="_blank" rel="noopener">Kelas 1-on-1 · Rp5 jt</a></li><li><a href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener">Komunitas gratis</a></li></ul></div>
+      </div>
+    </div>
+    <p class="credits">Foto: <a href="https://www.rawpixel.com/image/5914956/dark-bitcoin-coins" target="_blank" rel="noopener">“Dark Bitcoin Coins”</a>, CC0, via rawpixel; <a href="https://commons.wikimedia.org/w/index.php?curid=26385913" target="_blank" rel="noopener">“Casascius coin”</a> oleh Steve Jurvetson, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons; <a href="https://www.rawpixel.com/image/6307824/ny-stock-exchange-bernard-gotfryd-1924-2016" target="_blank" rel="noopener">“N.Y. Stock Exchange”</a> dan <a href="https://www.rawpixel.com/image/6302012/gold-market-stock-exchange-bernard-gotfryd-1924-2016" target="_blank" rel="noopener">“Gold market NY Stock Exchange”</a> oleh Bernard Gotfryd, Library of Congress, CC0, via rawpixel; <a href="https://commons.wikimedia.org/w/index.php?curid=22980043" target="_blank" rel="noopener">“Rice terraces in Jatiluwih”</a> oleh Globe-trotter, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, via Wikimedia Commons. Semua foto ditampilkan hitam putih.</p>
+    <div class="legal">
+      <p>Bukan nasihat keuangan. Semua angka adalah pengalaman pribadi. Crypto dan memecoin sangat volatil; jangan investasi dengan uang yang tidak siap hilang. © 2026 Trading Tenang.</p>
+      <a href="#top" onclick="window.scrollTo({top:0});return false;">Kembali ke atas ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var lg = Math.log10;
+  function make(parent, tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    parent.appendChild(e);
+    return e;
+  }
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  // Nilai portofolio dalam juta rupiah. 2023 = saldo rekening, 2025 = total profit kumulatif.
+  var journey = [
+    [2017.9, 50, '50 jt'], [2018.15, 5, '5 jt'], [2020.0, 5, null], [2021.3, 150, null],
+    [2021.85, 300, '300 jt'], [2022.6, 30, '30 jt'], [2023.5, 15, '15 jt'], [2024.95, 1000, '1 M'], [2025.6, 5000, '5 M']
+  ];
+  var bears = [[2018, 2019], [2022, 2023]];
+
+  /* ---------- Grafik hero ---------- */
+  var hero = document.getElementById('hero-svg');
+  function drawHero() {
+    var w = hero.clientWidth, h = hero.clientHeight;
+    if (!w || !h) return;
+    hero.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    hero.innerHTML = '';
+    var small = w < 640;
+    var m = { l: small ? 16 : 24, r: small ? 40 : 72, t: small ? 76 : 96, b: small ? 36 : 44 };
+    var x0 = 2017.4, x1 = 2026, v0 = 3, v1 = 6500;
+    function X(t) { return m.l + (t - x0) / (x1 - x0) * (w - m.l - m.r); }
+    function Y(v) { return m.t + (1 - (lg(v) - lg(v0)) / (lg(v1) - lg(v0))) * (h - m.t - m.b); }
+    bears.forEach(function (b) {
+      make(hero, 'rect', { x: X(b[0]), y: 0, width: X(b[1]) - X(b[0]), height: h, fill: css('--surface-2') });
+      if (!small) make(hero, 'text', { x: X(b[0]) + 12, y: m.t - 12, fill: css('--muted'), 'font-size': small ? 12 : 14, 'font-weight': 500 }, 'Bear market');
+    });
+    for (var yr = 2018; yr <= 2026; yr++) {
+      if (small && yr % 2) continue;
+      make(hero, 'text', { x: X(yr), y: h - 14, fill: css('--muted'), 'font-size': small ? 12 : 14, 'text-anchor': 'middle', 'class': 'num' }, String(yr));
+    }
+    var d = journey.map(function (p, i) { return (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1); }).join(' ');
+    var last = journey[journey.length - 1];
+    make(hero, 'path', { d: d + ' L' + X(last[0]) + ' ' + h + ' L' + X(journey[0][0]) + ' ' + h + ' Z', fill: css('--accent'), 'fill-opacity': .14 });
+    var line = make(hero, 'path', { d: d, fill: 'none', stroke: css('--accent'), 'stroke-width': small ? 3 : 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', 'class': 'line' });
+    line.style.setProperty('--len', Math.ceil(line.getTotalLength()));
+    var i = 0;
+    journey.forEach(function (p) {
+      if (!p[2]) return;
+      var g = make(hero, 'g', { 'class': 'pt' });
+      g.style.setProperty('--i', i++);
+      make(g, 'circle', { cx: X(p[0]), cy: Y(p[1]), r: small ? 5 : 7, fill: css('--accent') });
+      var big = p[1] >= 1000;
+      var below = p[1] <= 15 || p[2] === '5 jt';
+      make(g, 'text', {
+        x: X(p[0]) + (big ? -14 : 0), y: Y(p[1]) + (below ? (small ? 24 : 32) : (big ? 8 : (small ? -14 : -18))),
+        'text-anchor': big ? 'end' : 'middle', fill: css('--ink'), 'font-size': big ? (small ? 22 : 40) : (small ? 13 : 18),
+        'font-weight': 600, 'letter-spacing': '-0.02em', 'class': 'num'
+      }, p[2]);
+    });
+  }
+
+  /* ---------- Grafik interaktif ---------- */
+  var years = {
+    2017: { porto: 50, gaji: 6.5, val: 'Modal <b>50 jt</b>', text: 'Tahun pertama kerja kantoran. Modal 50 juta masuk crypto di akhir tahun.' },
+    2018: { porto: 5, gaji: 6.5, val: 'Turun ke <b>5 jt</b>', text: 'Bear market. Berhenti crypto, berhenti kerja, pulang kampung, lalu kerja lagi di sales FMCG.' },
+    2019: { porto: 5, gaji: 9, val: 'Diam di <b>5 jt</b>', text: 'Fokus kerja, gaji naik ke 9 juta. Coba saham Indonesia, profit 12 juta.' },
+    2020: { porto: null, gaji: 9, val: 'Pulih <b>pelan-pelan</b>', text: 'Market crypto kembali ke ATH. Porto lama yang ditinggal mulai naik.' },
+    2021: { porto: 300, gaji: 14.5, val: 'Puncak <b>300 jt</b>', text: 'Porto 5 juta jadi 150 juta. Saya tambah 75 juta dan tidak take profit.' },
+    2022: { porto: 30, gaji: 14.5, val: 'Turun ke <b>30 jt</b>', text: 'Bear market lagi. Kali ini saya tidak berhenti dan mulai mengulik sendiri.' },
+    2023: { porto: 15, gaji: 14.5, val: 'Rekening <b>15 jt</b>', text: 'Titik terendah: kena bencana alam. Belajar liquidity, token, dan memecoin di FrenPet.' },
+    2024: { porto: 1000, gaji: 14.5, val: 'Miliar pertama, <b>1 M</b>', text: 'TROLL $50 jadi $4.300. Musim memecoin Solana dan Base. Bikin $BAGS.' },
+    2025: { porto: 5000, gaji: 0, val: 'Total profit <b>5 M</b>', text: 'Royalti $BAGS $100 ribu. Rumah dan kendaraan dari crypto. Resign dari korporat.' },
+    2026: { porto: null, gaji: 0, val: 'Tiga kaki, <b>~$15rb</b> fees', text: 'Saham dividen, spot, memecoin. PEPES dapat sekitar $15.000 fees. Buka komunitas dan kelas.' }
+  };
+  var mode = 'porto', cur = 2021;
+  var plate = document.getElementById('plate-svg');
+  var range = document.getElementById('year');
+
+  function drawPlate() {
+    var w = plate.clientWidth, h = plate.clientHeight;
+    if (!w || !h) return;
+    plate.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    plate.innerHTML = '';
+    var m = { l: 20, r: 20, t: 64, b: 48 };
+    var bw = (w - m.l - m.r) / 10;
+    function X(y) { return m.l + (y - 2017) * bw + bw / 2; }
+    var fs = Math.max(13, Math.min(16, w / 34));
+    make(plate, 'text', { x: m.l, y: 36, fill: css('--muted'), 'font-size': fs, 'font-weight': 500 },
+      mode === 'porto' ? 'Portofolio crypto, juta rupiah, skala log' : 'Gaji per bulan, juta rupiah');
+    Object.keys(years).forEach(function (k) {
+      var y = +k, d = years[k], on = y === cur;
+      var v = mode === 'porto' ? d.porto : d.gaji;
+      var H = h - m.t - m.b, top;
+      if (mode === 'porto') {
+        top = v == null ? null : m.t + (1 - (lg(v) - lg(3)) / (lg(6000) - lg(3))) * H;
+      } else {
+        top = v ? m.t + (1 - v / 16) * H : null;
+      }
+      var fill = on ? css('--accent') : (y === 2018 || y === 2022 ? '#3a3d42' : '#55585e');
+      if (top != null) make(plate, 'rect', { x: X(y) - bw * .36, y: top, width: bw * .72, height: h - m.b - top, fill: fill });
+      else make(plate, 'rect', { x: X(y) - bw * .36, y: h - m.b - 4, width: bw * .72, height: 4, fill: fill });
+      make(plate, 'text', { x: X(y), y: h - m.b + 24, 'text-anchor': 'middle', fill: on ? css('--ink') : css('--muted'), 'font-size': fs - 1, 'font-weight': on ? 600 : 400, 'class': 'num' }, "'" + String(y).slice(2));
+      if (on && top != null) {
+        var label = mode === 'porto' ? (v >= 1000 ? (v / 1000) + ' M' : v + ' jt') : (String(v).replace('.', ',') + ' jt');
+        make(plate, 'text', { x: X(y), y: top - 10, 'text-anchor': 'middle', fill: css('--ink'), 'font-size': fs + 4, 'font-weight': 600, 'class': 'num' }, label);
+      }
+    });
+    // Klik batang untuk pilih tahun
+    var hit = make(plate, 'rect', { x: m.l, y: 0, width: w - m.l - m.r, height: h, fill: 'transparent', style: 'cursor:pointer' });
+    hit.addEventListener('click', function (e) {
+      var r = plate.getBoundingClientRect();
+      var y = 2017 + Math.floor((e.clientX - r.left - m.l) / bw);
+      if (y >= 2017 && y <= 2026) { range.value = y; setYear(y); }
+    });
+  }
+
+  function setYear(y) {
+    cur = +y;
+    var d = years[cur];
+    document.getElementById('ny-year').textContent = cur;
+    var val = mode === 'porto' ? d.val : (d.gaji ? 'Gaji <b>' + String(d.gaji).replace('.', ',') + ' jt</b> sebulan' : 'Gaji <b>0</b>, sudah resign');
+    document.getElementById('ny-val').innerHTML = val;
+    document.getElementById('ny-text').textContent = d.text;
+    drawPlate();
+  }
+  range.addEventListener('input', function () { setYear(range.value); });
+  var tabs = document.querySelectorAll('.tabs button');
+  tabs.forEach(function (b) {
+    b.addEventListener('click', function () {
+      tabs.forEach(function (o) { o.setAttribute('aria-selected', o === b ? 'true' : 'false'); });
+      mode = b.id === 'tab-gaji' ? 'gaji' : 'porto';
+      setYear(cur);
+    });
+  });
+
+  function all() { drawHero(); drawPlate(); }
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(all, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(all);
+  all();
+})();
+</script>

@@ -1,0 +1,18 @@
+# Hasil build lokal dan Artifact (dibuat ulang oleh build.mjs)
+site/
+trading-tenang.html
+logo-trading-tenang.html
+
+# File font tidak ikut diupload (lisensi Fontshare tidak mengizinkan file fontnya disebar ulang)
+fonts/
+logo/src/
+
+# Foto asli beresolusi penuh; versi web ada di assets/web
+assets/*.jpg
+assets/*.webp
+assets/*.png
+
+# Catatan kerja pemeriksa desain
+.taste-skill/
+
+.DS_Store
