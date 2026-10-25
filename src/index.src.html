@@ -181,6 +181,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: calc(6px +
 .proj.bags figure { grid-column: 7 / 12; }
 .proj.pepes figure { grid-column: 1 / 8; }
 .proj.pepes .proj-text { grid-column: 9 / 13; }
+.proj.runner .proj-text { grid-column: 1 / 6; min-width: 0; }
+.proj.runner figure { grid-column: 7 / 13; }
+.proj.runner .proj-name { font-size: clamp(3.5rem, 1rem + 5.4vw, 7rem); }
 
 /* ---------- Pelajaran ---------- */
 .lessons { background: var(--surface); padding-block: 120px 160px; }
@@ -275,7 +278,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
   .plate-right .cells { order: 5; padding-block: 28px 56px; }
   .projects { padding-block: 96px 112px; }
   .proj-head, .proj { grid-template-columns: minmax(0, 1fr); }
-  .proj-head h2, .proj-head p, .proj.bags .proj-text, .proj.bags figure, .proj.pepes figure, .proj.pepes .proj-text { grid-column: 1 / -1; }
+  .proj-head h2, .proj-head p, .proj.bags .proj-text, .proj.bags figure, .proj.pepes figure, .proj.pepes .proj-text, .proj.runner .proj-text, .proj.runner figure { grid-column: 1 / -1; }
   .proj { margin-top: 80px; }
   .proj.pepes .proj-text { order: -1; }
   .lessons { padding-block: 96px 112px; }
@@ -448,7 +451,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
         <details class="rv"><summary><span class="y num">2025</span><span class="t">Resign dari korporat</span><span class="v up num">5 M</span><span class="pl" aria-hidden="true"></span></summary>
           <ul><li><span>Royalti $BAGS</span><span>$100.000</span></li><li><span>Burnout memecoin</span><span>pindah ke spot</span></li><li><span>Total profit crypto</span><span>5 M</span></li><li><span>Rumah dan kendaraan</span><span>dari crypto</span></li><li><span>Diversifikasi, akhir tahun</span><span>saham dividen</span></li></ul></details>
         <details class="rv" open><summary><span class="y num">2026</span><span class="t">Tiga kaki dan berbagi</span><span class="v up num">$15rb</span><span class="pl" aria-hidden="true"></span></summary>
-          <ul><li><span>Saham dividen, spot, memecoin</span><span>jalan</span></li><li><span>PEPES, launchpad ekosistem IMD</span><span>~$15.000 fees</span></li><li><span>Komunitas Trading Tenang x OKX</span><span>gratis</span></li><li><span>Mentorship one on one</span><span>dibuka</span></li></ul></details>
+          <ul><li><span>Saham dividen, spot, memecoin</span><span>jalan</span></li><li><span>PEPES, launchpad ekosistem IMD</span><span>~$15.000 fees</span></li><li><span>RUNNER, aplikasi run-to-earn</span><span>live 25 Okt</span></li><li><span>Komunitas Trading Tenang x OKX</span><span>gratis</span></li><li><span>Mentorship one on one</span><span>dibuka</span></li></ul></details>
       </div>
     </div>
   </section>
@@ -457,7 +460,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
     <div class="inner">
       <div class="proj-head">
         <h2 id="h-project" class="rv">Eksperimen personal project</h2>
-        <p class="rv d1">Dua project yang saya bangun sendiri, bukan cuma saya beli. Satu iseng, satu untuk hackathon. Dua-duanya menghasilkan.</p>
+        <p class="rv d1">Tiga project yang saya bangun sendiri, bukan cuma saya beli: satu memecoin iseng, satu launchpad untuk hackathon, dan satu aplikasi lari.</p>
       </div>
 
       <article class="proj bags" aria-labelledby="h-bags">
@@ -495,6 +498,24 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
             <a class="btn alt" href="https://dexscreener.com/robinhood/0xa6ac374bf40898004f0f4cf46389d4fc2735fe413c95379a5b2e1fdce089ec18" target="_blank" rel="noopener">Dexscreener <span aria-hidden="true">↗</span></a>
           </div>
         </div>
+      </article>
+      <article class="proj runner" aria-labelledby="h-runner">
+        <div class="proj-text">
+          <h3 id="h-runner" class="proj-name">$RUNNER</h3>
+          <p class="rv">Aplikasi lari dengan GPS di Robinhood Chain. Pakai sneaker NFT RUNNER Genesis, lari di zona pace-nya, lalu dapat token RUNNER dari setiap kilometer.</p>
+          <dl class="proj-figs rv d1">
+            <div><dt>25 Okt 2026</dt><dd>Live di Robinhood Chain</dd></div>
+            <div><dt>10 jt/hari</dt><dd>RUNNER untuk pelari, halving tiap 30 hari</dd></div>
+          </dl>
+          <div class="proj-links rv d2">
+            <a class="btn" href="https://www.runearn.fun/" target="_blank" rel="noopener">Buka RUNNER <span aria-hidden="true">↗</span></a>
+            <a class="btn alt" href="https://dexscreener.com/robinhood/0x238a2736e5acdd0d526006f255316bdc7989f97793bb28bf91f41ee47fd3ce71" target="_blank" rel="noopener">Dexscreener <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="rv d1">
+          <img src="{{img:runner-og}}" width="1200" height="630" alt="Banner RUNNER, run to earn: dua karakter Pepe sedang berlari di latar merah" loading="lazy">
+          <figcaption>RUNNER, run to earn. Aplikasinya bisa dipasang di HP dari runearn.fun.</figcaption>
+        </figure>
       </article>
     </div>
   </section>
@@ -575,7 +596,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
       </ul>
       <div class="foot-cols">
         <div><h3>Halaman</h3><ul><li><a href="#grafik">Grafik</a></li><li><a href="#jurnal">Jurnal</a></li><li><a href="#pelajaran">Pelajaran</a></li><li><a href="#kelas">Kelas</a></li></ul></div>
-        <div><h3>Project</h3><ul><li><a href="https://www.pepesimd.fun/" target="_blank" rel="noopener">PEPES</a></li><li><a href="https://dexscreener.com/robinhood/0xa6ac374bf40898004f0f4cf46389d4fc2735fe413c95379a5b2e1fdce089ec18" target="_blank" rel="noopener">PEPES di Dexscreener</a></li><li><a href="https://dexscreener.com/solana/gwqe7fxukze46zqch7afwpzwzktbdt8wfjlwddja3unl" target="_blank" rel="noopener">$BAGS di Dexscreener</a></li></ul></div>
+        <div><h3>Project</h3><ul><li><a href="https://www.pepesimd.fun/" target="_blank" rel="noopener">PEPES</a></li><li><a href="https://dexscreener.com/robinhood/0xa6ac374bf40898004f0f4cf46389d4fc2735fe413c95379a5b2e1fdce089ec18" target="_blank" rel="noopener">PEPES di Dexscreener</a></li><li><a href="https://dexscreener.com/solana/gwqe7fxukze46zqch7afwpzwzktbdt8wfjlwddja3unl" target="_blank" rel="noopener">$BAGS di Dexscreener</a></li><li><a href="https://www.runearn.fun/" target="_blank" rel="noopener">RUNNER</a></li><li><a href="https://dexscreener.com/robinhood/0x238a2736e5acdd0d526006f255316bdc7989f97793bb28bf91f41ee47fd3ce71" target="_blank" rel="noopener">$RUNNER di Dexscreener</a></li></ul></div>
         <div><h3>Belajar</h3><ul><li><a href="https://clicky.id/tradingtenang" target="_blank" rel="noopener">Kelas 1-on-1 · Rp5 jt</a></li><li><a href="https://t.me/+ElLxYPJzRutiNTNl" target="_blank" rel="noopener">Komunitas gratis</a></li></ul></div>
       </div>
     </div>
