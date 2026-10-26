@@ -171,6 +171,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: calc(6px +
 .proj-figs div { display: grid; gap: 2px; }
 .proj-figs dt { font-size: var(--step-lead); font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .proj-figs dd { color: var(--field-muted); font-size: 16px; }
+.proj-figs .wide { grid-column: 1 / -1; }
+.proj-figs .wide dt b { background: var(--accent); color: var(--accent-ink); font-weight: 600; padding: 0 .2em; }
+.proj-figs .wide dd { color: var(--field-ink); max-width: 44ch; }
 .proj-links { display: flex; gap: 8px; flex-wrap: wrap; }
 .projects .btn:hover { background: var(--field-ink); color: var(--field); }
 .btn.alt { background: #d2d4d7; color: var(--field-ink); }
@@ -213,6 +216,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: calc(6px +
 .cta-top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start; }
 .cta-top h2 { grid-column: 1 / 7; }
 .cta-top p { grid-column: 8 / 12; font-size: var(--step-body); }
+.cta-top p b { font-weight: 700; }
 .cta-top svg { grid-column: 12 / 13; justify-self: end; }
 .cta-top h2 { font-size: var(--step-lead); letter-spacing: -.02em; line-height: 1.2; max-width: 34ch; font-weight: 500; }
 .cta-top svg { width: 48px; height: 48px; flex: none; transition: transform .3s var(--ease-out); }
@@ -313,7 +317,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
   .cta, .cta .inner { min-height: 46svh; }
   .cta-top { grid-template-columns: minmax(0, 1fr) auto; }
   .cta-top h2 { font-size: 17px; grid-column: 1; }
-  .cta-top p { display: none; }
+  .cta-top p { grid-column: 1 / -1; grid-row: 2; font-size: 16px; }
   .cta-top svg { grid-column: 2; grid-row: 1; }
   .cta-top svg { width: 32px; height: 32px; }
   .cta-word { font-size: 24vw; }
@@ -504,8 +508,9 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
           <h3 id="h-runner" class="proj-name">$RUNNER</h3>
           <p class="rv">Aplikasi lari dengan GPS di Robinhood Chain. Pakai sneaker NFT RUNNER Genesis, lari di zona pace-nya, lalu dapat token RUNNER dari setiap kilometer.</p>
           <dl class="proj-figs rv d1">
+            <div class="wide"><dt><b>10.000.000 token RUNNER</b> per hari</dt><dd>Dibagikan ke pelari setiap hari, dalam bentuk token RUNNER. Jumlahnya halving tiap 30 hari.</dd></div>
             <div><dt>25 Okt 2026</dt><dd>Live di Robinhood Chain</dd></div>
-            <div><dt>10 jt/hari</dt><dd>RUNNER untuk pelari, halving tiap 30 hari</dd></div>
+            <div><dt>Halving</dt><dd>Setiap 30 hari</dd></div>
           </dl>
           <div class="proj-links rv d2">
             <a class="btn" href="https://www.runearn.fun/" target="_blank" rel="noopener">Buka RUNNER <span aria-hidden="true">↗</span></a>
@@ -551,7 +556,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
     <div class="inner">
       <div class="cta-top">
         <h2 id="h-cta">Komunitas gratis Trading Tenang x OKX di Telegram. Saham, crypto, memecoin, dan project.</h2>
-        <p>Grup diskusi untuk tanya jawab, channel untuk update dan sinyal. Keduanya gratis.</p>
+        <p>Gratis. Satu-satunya admin adalah <b>@tradingtenang</b>. Akun lain yang mengaku admin atau meminta transfer bukan kami.</p>
         <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 36 36 12M16 12h20v20" fill="none" stroke="currentColor" stroke-width="4"/></svg>
       </div>
       <div class="cta-word" aria-hidden="true">Gabung</div>
@@ -573,7 +578,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
       </div>
       <a class="contact-big" href="https://clicky.id/tradingtenang" target="_blank" rel="noopener">clicky.id/<wbr>tradingtenang <span class="arr" aria-hidden="true">↗</span></a>
       <div class="contact-foot">
-        <span>Online · Indonesia</span>
+        <span>Admin hanya <a href="https://t.me/tradingtenang" target="_blank" rel="noopener"><b>@tradingtenang</b></a> di Telegram. Pembayaran hanya lewat clicky.id/tradingtenang.</span>
         <div>
           <a href="https://x.com/TradingTenang" target="_blank" rel="noopener">X @TradingTenang</a>
           <a href="https://www.tiktok.com/@TENANGTRADING" target="_blank" rel="noopener">TikTok @TENANGTRADING</a>
@@ -602,7 +607,7 @@ footer { background: var(--bg); padding-block: 96px 40px; overflow: hidden; }
     </div>
     <p class="credits">Foto: <a href="https://www.rawpixel.com/image/5914956/dark-bitcoin-coins" target="_blank" rel="noopener">“Dark Bitcoin Coins”</a>, CC0, via rawpixel; <a href="https://commons.wikimedia.org/w/index.php?curid=26385913" target="_blank" rel="noopener">“Casascius coin”</a> oleh Steve Jurvetson, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>, via Wikimedia Commons; <a href="https://www.rawpixel.com/image/6307824/ny-stock-exchange-bernard-gotfryd-1924-2016" target="_blank" rel="noopener">“N.Y. Stock Exchange”</a> dan <a href="https://www.rawpixel.com/image/6302012/gold-market-stock-exchange-bernard-gotfryd-1924-2016" target="_blank" rel="noopener">“Gold market NY Stock Exchange”</a> oleh Bernard Gotfryd, Library of Congress, CC0, via rawpixel; <a href="https://commons.wikimedia.org/w/index.php?curid=22980043" target="_blank" rel="noopener">“Rice terraces in Jatiluwih”</a> oleh Globe-trotter, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>, via Wikimedia Commons. Semua foto ditampilkan hitam putih.</p>
     <div class="legal">
-      <p>Bukan nasihat keuangan. Semua angka adalah pengalaman pribadi. Crypto dan memecoin sangat volatil; jangan investasi dengan uang yang tidak siap hilang. © 2026 Trading Tenang.</p>
+      <p>Satu-satunya admin Trading Tenang di Telegram adalah @tradingtenang. Bukan nasihat keuangan. Semua angka adalah pengalaman pribadi. Crypto dan memecoin sangat volatil; jangan investasi dengan uang yang tidak siap hilang. © 2026 Trading Tenang.</p>
       <a href="#top" onclick="window.scrollTo({top:0});return false;">Kembali ke atas ↑</a>
     </div>
   </div>
